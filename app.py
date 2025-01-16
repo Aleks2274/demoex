@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from fastapi import FastAPI
 
 
-class order(BaseModel):
+class Order(BaseModel):
     number : int
     startDate : datetime.date
     device :str
@@ -12,12 +12,23 @@ class order(BaseModel):
     client : str
     status : str
 
-repo = []
+repo = [
+    Order(
+        number = 1,
+        startDate = "2022-12-22", 
+        device = "123",
+        problemType = "123",
+        description = "123",
+        client = "123",
+        status = "в ожидании"
+        
+    )
+]
 
 
  
 app = FastAPI()
  
-@app.get("/")
-def read_root():
-    return "hello brat"
+@app.get("/orders")
+def get_orders():
+    return repo
