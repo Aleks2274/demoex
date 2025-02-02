@@ -3,7 +3,6 @@ from typing import Annotated, Optional
 from pydantic import BaseModel
 from fastapi import FastAPI, Form
 
-
 class Order(BaseModel):
     number : int
     startDate : datetime.date
@@ -18,7 +17,8 @@ class UpdateOrderDTO(BaseModel):
     number : int
     status : Optional[str] = ""
     description : Optional[str] = ""
-    master : Optional[str] = ""   
+    master : Optional[str] = "" 
+      
 repo = [
     Order(
         number = 1,
@@ -38,5 +38,18 @@ def get_orders():
     return repo
 
 @app.post("/orders")
-def creat_order(dto : Annotated[Order, Form()]):
+def create_order(dto : Annotated[Order, Form()]):
     repo.append(dto)
+    
+@app.post("/update")
+def update_order(dto : Annotated[UpdateOrderDTO, Form()]):
+    for o in repo:
+        if o.number == dto.number:
+            if dto.status != o.status and dto.status != "":
+                o.status = dto.status
+            if dto.description != "":
+                o.description = dto.description
+            if dto.master != "":
+                o.master = dto.master
+            return o
+    return "Не найденo"    
