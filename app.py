@@ -23,11 +23,11 @@ class UpdateOrderDTO(BaseModel):
 repo = [
     Order(
         number = 1,
-        startDate = "2022-12-22", 
-        device = "123",
-        problemType = "123",
-        description = "123",
-        client = "123",
+        startDate = "2022-10-20", 
+        device = "1",
+        problemType = "12",
+        description = "13",
+        client = "григорьев",
         status = "в ожидании"
     ),
     Order(
@@ -36,7 +36,7 @@ repo = [
         device = "123",
         problemType = "123",
         description = "123",
-        client = "123",
+        client = "Петров",
         status = "в ожидании"
     ),
     Order(
@@ -45,7 +45,7 @@ repo = [
         device = "123",
         problemType = "123",
         description = "123",
-        client = "123",
+        client = "2",
         status = "в ожидании"
     )
 ]
@@ -79,7 +79,7 @@ def update_order(dto : Annotated[UpdateOrderDTO, Form()]):
         if o.number == dto.number:
             if dto.status != o.status and dto.status != "":
                 o.status = dto.status
-                message += "Статус заявки №{o.number} изменен"
+                message += f"Статус заявки №{o.number} изменен\n"
             if dto.description != "":
                 o.description = dto.description
             if dto.master != "":
