@@ -7,7 +7,7 @@
     <a href="create.html">Создание заявки</a>
     <a href="orders.html">Список заявок</a>
     <a href="update.html">Обновление заявки</a>
-    <a href="stat.html">Сеатисеика</a><br>
+    <a href="stat.html">Статистика</a><br>
     Количество выполненных заявок: 
         <span id="complete_count"></span><br>
     Среднее время выполнения заявки: 
@@ -26,10 +26,6 @@
     th, td { border: 1px solid black;}
 </style>
 <script>
-
-    if(!sessionStorage.getItem("token"))
-        window.location.href = "auth.html";
-
     let complete_count = document.getElementById("complete_count");
     let average_time_to_complete = document.getElementById("average_time_to_complete");
     let stat_table = document.querySelector("tbody");
