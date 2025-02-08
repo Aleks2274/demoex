@@ -10,11 +10,13 @@
     <iframe name="frame" style="display: none;"></iframe>
     <form target="frame" action="http://localhost:8000/orders" method="post">
       <input required placeholder="Номер" type="number" name="number" /><br />
-      <input required placeholder="Дата добавления" type="date" name="startDate" /><br />
+      <label for="startDate">Дата добавления</label><br/>
+      <input required type="date" name="startDate" /><br />
       <input required placeholder="Оборудование" type="text" name="device" /><br />
       <input required placeholder="Проблема" type="text" name="problemType" /><br />
       <input required placeholder="Описание" type="text" name="description" /><br />
       <input required placeholder="Клиент" type="text" name="client" /><br />
+      <label for="startDate">Статус</label><br/>
       <select name="status">
         <option>в ожидании</option>
         <option>в работе</option>
