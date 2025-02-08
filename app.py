@@ -13,12 +13,14 @@ class Order(BaseModel):
     client : str
     status : str
     master : Optional[str] = "Не назначен"
+    comments : Optional[list] = []
     
 class UpdateOrderDTO(BaseModel):
     number : int
     status : Optional[str] = ""
     description : Optional[str] = ""
-    master : Optional[str] = "" 
+    master : Optional[str] = ""
+    comment : Optional[str] = str 
       
 repo = [
     Order(
@@ -67,8 +69,8 @@ def get_orders(param = None):
     buffer = message
     message = ""
     if (param):
-        return {"repo": [o for o in repo if o.number == int(param)], "message": message}
-    return {"repo": repo, "message": message}
+        return {"repo": [o for o in repo if o.number == int(param)], "message": buffer}
+    return {"repo": repo, "message": buffer}
 
 @app.post("/orders")
 def create_order(dto : Annotated[Order, Form()]):
@@ -82,9 +84,13 @@ def update_order(dto : Annotated[UpdateOrderDTO, Form()]):
             if dto.status != o.status and dto.status != "":
                 o.status = dto.status
                 message += f"Статус заявки №{o.number} изменен\n"
+                if(o.status == "выполнено"):
+                    message += f"Заявка №{o.number} завершена\n"
             if dto.description != "":
                 o.description = dto.description
             if dto.master != "":
                 o.master = dto.master
+            if dto.comment != None and dto.comment != "":
+                o.comments.append(dto.comment)
             return o
     return "Не найденo"    
