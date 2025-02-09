@@ -31,6 +31,10 @@
         </tbody>
     </table>
     <script>
+
+        if(!sessionStorage.getItem("token"))
+            window.location.href = "auth.html";
+             
         let tbody = document.querySelector("tbody");
 
         GetOrders();
